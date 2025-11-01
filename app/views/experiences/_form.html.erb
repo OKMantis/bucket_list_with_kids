@@ -1,10 +1,12 @@
 <!-- shared form for new and edit -->
 
-<%= simple_form_for(destination, html: { multipart: true}) do |f| %>
+<% submit_path = experience.new_record? ? destination_experiences_path(destination, experience) : experience_path(destination, experience) %>
+
+<%= simple_form_for(experience, url: submit_path, html: { multipart: true}) do |f| %>
   <section class="main">
-    <%= f.input :name, placeholder: "Enter destination name" %>
+    <%= f.input :name, placeholder: "Enter experience name" %>
     <%= f.input :meta_title, placeholder: "Enter meta title" %>
-    <%= f.text_area :description, placeholder: "Enter destination synopsis" %>
+    <%= f.text_area :description, placeholder: "Enter experience synopsis" %>
     <%= f.text_area :meta_description, placeholder: "Enter destination meta description" %>
     <%= f.input :booking_link %>
   </section>
@@ -16,7 +18,7 @@
     </ul>
 
     <%= f.label :photo %><br>
-    <%= f.file_field :photo, id: "photoSelector", accept: ".jpg, .jpeg, .png", multiple: true, name: "destination[photos_attributes][][photo]" %>
+    <%= f.file_field :photo, id: "photoSelector", accept: ".jpg, .jpeg, .png", multiple: true, name: "experience[photos_attributes][][photo]" %>
     <div id="photoPreview"></div>
   </section>
   
@@ -97,7 +99,7 @@
     Example structure of photo:
     {
       created_at: "2018-05-07T19:31:58.191Z"
-      destination_id: 2
+      experience_id: 2
       id: 3
       photo: {
         url: "http://res.cloudinary.com/tinco-it/image/upload/v1525721518/waerd6nklxa65oopmknh.jpg"
@@ -105,8 +107,8 @@
       updated_at: "2018-05-07T19:31:58.191Z"
     }
     */
-    const initialPhotos = <%= destination.photos.to_json.html_safe %>;
-    const destinationId = <%= destination.id || "null" %>;
+    const initialPhotos = <%= experience.photos.to_json.html_safe %>;
+    const experienceId = <%= experience.id || "null" %>;
     
     const renderPhoto = (photo) => {
       const [urlPrefix, photoPath] = photo.photo.url.split(/\/image\/upload\//);

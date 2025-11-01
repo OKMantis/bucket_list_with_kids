@@ -36,7 +36,7 @@ puts "Starting seeding process..."
 csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 filepath    = 'db/blwkseed.csv'
 
-user = User.first_or_initialize(username: "mr555", email: "matt@growx3.com", password: "testtest")
+user = User.first_or_initialize(username: "mr555", admin: true, email: "matt@growx3.com", password: "testtest")
 user.save
 
 # Skip geocoding during seeding since we already have lat/lng from CSV

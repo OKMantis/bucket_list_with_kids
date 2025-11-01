@@ -1,10 +1,18 @@
 class Experience < ApplicationRecord
+  before_validation :set_url_name
+
+  def to_param
+    url_name
+  end
+
   has_many :reviews
   has_many :accommodations
   belongs_to :user, optional: true
   belongs_to :destination
   has_many :photos, dependent: :destroy
   # mount_uploader :photo, PhotoUploader
+
+  validates :url_name, presence: true
 
 # TO GET GEOCODE WHERE ADDRESS THAT IT BROKEN UP INTO SEPARATE COLUMNS IN THE TABLE
   geocoded_by :full_address
@@ -23,5 +31,10 @@ class Experience < ApplicationRecord
 
   def full_address
     "#{street} #{street_number}, #{locality}, #{country}, #{region}"
+  end
+  
+  private
+  def set_url_name
+    self.url_name ||= name.parameterize
   end
 end

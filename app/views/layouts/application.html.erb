@@ -8,12 +8,12 @@
   <%= csrf_meta_tags %>
   <%= action_cable_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css' %>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
   <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
 
   <!-- Our favicon -->
   <%= favicon_link_tag %>
+
+  <!-- Below - Social media meta tag set-up -->
 
   <title><%= meta_title %></title>
   <meta name="description" content="<%= meta_description %>">
@@ -33,21 +33,25 @@
   <meta name="twitter:description" content="<%= meta_description %>">
   <meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>">
   <meta name="twitter:image:src" content="<%= meta_image %>">
+  <!-- Above - Social media meta tag set-up -->
+
+  <%= content_for(:extra_meta) %>
 </head>
 <body>
 
   <%= render 'shared/navbar' %>
 
   <%= render 'shared/flashes' %>
-  <%= yield %>
+  <%= content_for?(:content) ? yield(:content) : yield %>
+
   <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0' %>
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js' %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_pack_tag 'application' %>
   <%= javascript_pack_tag 'map' %>
-  <script>
+  <%= yield :extra_javascript %>
 
-  </script>
+  <script src="//rum-static.pingdom.net/pa-5ad5a1540b346800070006e7.js" async></script>
 </body>
 </html>

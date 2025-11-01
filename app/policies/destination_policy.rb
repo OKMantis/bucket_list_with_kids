@@ -13,8 +13,12 @@ class DestinationPolicy < ApplicationPolicy
     true
   end
 
-  def create?
+  def show_by_name?
+    true
+  end
 
+  def create?
+    user.admin? if user
   end
 
   def edit?

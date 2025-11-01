@@ -99,6 +99,11 @@ ActiveRecord::Schema[7.2].define(version: 2018_03_14_103038) do
     t.boolean "allowed_age_12_15"
     t.boolean "allowed_age_16_18"
     t.string "photos"
+    t.string "url_name"
+    t.string "meta_title"
+    t.string "meta_description"
+    t.string "page_title"
+    t.index ["url_name"], name: "index_destinations_on_url_name"
     t.index ["user_id"], name: "index_destinations_on_user_id"
   end
 
@@ -137,7 +142,12 @@ ActiveRecord::Schema[7.2].define(version: 2018_03_14_103038) do
     t.boolean "allowed_age_16_18"
     t.string "photos"
     t.string "destination_name"
+    t.string "url_name"
+    t.string "meta_title"
+    t.string "meta_description"
+    t.string "page_title"
     t.index ["destination_id"], name: "index_experiences_on_destination_id"
+    t.index ["url_name"], name: "index_experiences_on_url_name"
     t.index ["user_id"], name: "index_experiences_on_user_id"
   end
 
