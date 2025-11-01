@@ -2,7 +2,8 @@
 <%= link_to "Add new destination", new_destination_path, class: "btn btn-primary" %>
 <% end %>
 
-<div class="banner" style="background-image: linear-gradient(-225deg, rgba(152, 135, 143, 0) 0%, rgba(73, 78, 107, 0.2) 50%), url('<%= cl_image_path 'safari1_copy2.jpg'%>');">
+<% banner_image = safe_cl_image_path('safari1_copy2.jpg') %>
+<div class="banner" <%= "style=\"background-image: linear-gradient(-225deg, rgba(152, 135, 143, 0) 0%, rgba(73, 78, 107, 0.2) 50%), url('#{banner_image}');\"" if banner_image.present? %>>
 
   <div class="banner-content">
   <%= image_tag 'small_bucket', :class => "page-logo" %><br>
